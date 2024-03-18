@@ -7,7 +7,7 @@ REM Define Composer install command
 set COMPOSER_INSTALL=%DOCKER% php bin/composer install
 
 REM Define migrate command
-set MIGRATE=call .\docker\wait-for-it.bat localhost:33061 8  "%DOCKER% php artisan migrate"
+set MIGRATE=%DOCKER% php artisan migrate
 
 REM Setup target
 :setup
@@ -26,8 +26,6 @@ if not exist bin\composer (
 if not exist .env (
     copy .env.example .env
     %DOCKER% php artisan key:generate
-    REM Set permissions for storage and cache directories
-    %DOCKER% chmod -R 777 storage bootstrap/cache
 )
 
 REM Add config:cache to cache the configuration

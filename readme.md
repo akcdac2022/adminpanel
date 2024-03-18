@@ -25,6 +25,14 @@ __Notice__: originally created with Laravel 5.3, it was upgraded to Laravel 5.6 
 - Run __make setup__
 - Access via __http://localhost:8888__
 
+#### Using Docker in windows
+- clone the repository with __git clone__
+- Run __.\setup.bat__
+##### Any issue then run below
+- Run __DOCKER% php bin/composer dump-autoload__
+- Run __%DOCKER% php artisan key:generate__
+- Run __%DOCKER% php artisan migrate:fresh --seed__
+
 #### Without Docker
 - Clone the repository with __git clone__
 - Copy __.env.example__ file to __.env__ and edit database credentials there
