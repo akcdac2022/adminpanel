@@ -1,0 +1,4 @@
+.\setup.bat
+%DOCKER% php artisan key:generate
+%DOCKER% php artisan migrate:fresh --seed
+

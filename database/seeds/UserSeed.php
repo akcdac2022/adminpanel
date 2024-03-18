@@ -2,6 +2,7 @@
 
 use App\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash; // Import the Hash facade
 
 class UserSeed extends Seeder
 {
@@ -14,7 +15,7 @@ class UserSeed extends Seeder
                 'id'             => 1,
                 'name'           => 'Admin',
                 'email'          => 'admin@admin.com',
-                'password'       => '$2y$10$GdubO8p..1F4Ic60m0e6Nu3H.0T5k6fhRmd3ozDuqaN.dBD83J9ue',
+                'password'       => Hash::make('password'), // Hash the password
                 'role_id'        => 1,
                 'remember_token' => '',
             ],
