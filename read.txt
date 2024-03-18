@@ -2,3 +2,29 @@
 %DOCKER% php artisan key:generate
 %DOCKER% php artisan migrate:fresh --seed
 
+.\vendor\laravel\framework\src\Illuminate\Foundation\PackageManifest.php
+
+
+ public function build()
+    {
+        $packages = [];
+
+        if ($this->files->exists($path = $this->vendorPath . '/composer/installed.json')) {
+            $installed = json_decode($this->files->get($path), true);
+            // Check if 'packages' key exists before accessing it
+            $packages = $installed['packages'] ?? [];
+        }
+
+        $ignoreAll = in_array('*', $ignore = $this->packagesToIgnore());
+
+        $this->write(collect($packages)->mapWithKeys(function ($package) {
+            // Ensure 'name' index exists before accessing it
+            $packageName = isset ($package['name']) ? $package['name'] : null;
+            return [$this->format($packageName) => $package['extra']['laravel'] ?? []];
+        })->each(function ($configuration) use (&$ignore) {
+            $ignore = array_merge($ignore, $configuration['dont-discover'] ?? []);
+        })->reject(function ($configuration, $package) use ($ignore, $ignoreAll) {
+            return $ignoreAll || in_array($package, $ignore);
+        })->filter()->all());
+    }
+
